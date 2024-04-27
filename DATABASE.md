@@ -9,7 +9,9 @@ I am viewing the database model as _relationships_ between a few core **entities
 # Relationships
 
 A SalesOrder can have one or many related Products
+
 A Product can have one or many related Ingredients
+
 An Ingredient can have zero or many related Products
 
 # Entity Attributes
