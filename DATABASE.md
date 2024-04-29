@@ -20,7 +20,7 @@ An Ingredient can have zero or many related Products
 
 - OrderID (PK)
 - OrderProductsID (FK bridging to table relating ProductIDs with the order)
-- Status (Open, In Procurement, In Production, Fulfilled)
+- Status (Open, Procurement, Production, Fulfilled)
 
 ## OrderProducts
 
@@ -35,8 +35,10 @@ An Ingredient can have zero or many related Products
 - ProductIngredientsID (FK bridging to table relating IngredientIDs with the product)
 - Name
 - Description
+- UnitsPerOrder
 - UnitsStocked
-- UnitsAvailable
+- UnitsAllocated
+- UnitsFulfilled
 
 ## ProductIngredients
 
@@ -44,7 +46,6 @@ An Ingredient can have zero or many related Products
 - ProductID (FK)
 - IngredientID (FK)
 - QuantityRequired
-- UnitsProduced
 
 ## Ingredients
 
@@ -53,15 +54,33 @@ An Ingredient can have zero or many related Products
 - Description
 - MinimumOrderQuantity
 - QuantityStocked
-- QuantityAvailable
+- QuantityAllocated
+- QuantityConsumed
 
-# thinking out loud
+# Dummy Data
 
-how am i going to organize the relationship bw products and Orders?
-specifically, whats the system for quantity?
-does the Product manage quantity of UnitsProduced, and the Order specify quantity as ProductQuantity?
-i think it's reasonable to let Product manage the UnitsProduced, but let Order include a UnitsRequested
+## Products
 
-a part of business logic will be comparing Order.UnitsRequested with Product.UnitsProduced to determine the appropriate number of batches to produce for fulfillment.
+Lets say Nutra Factory makes 3 different products:
 
-but actually since UnitsRequested is specific to a given Product, i'll have to keep that data in the OrderProducts row.
+1. ImmuneBoost - 100 UnitsProduced from 40 Vitamin C + 1000 Gummy Base
+2. SleepRite - 100 UnitsProduced from 20 Melatonin + 1000 Gummy Base
+3. Alphabetter - 200 UnitsProduced from 20 each of Vitamins A, B, and C + 2000 Gummy Base
+
+## Orders
+
+And they have 5 orders, 2 Open, 1 Procurement, 1 Production, 1 Fulfilled
+
+1. 2 ImmuneBoost and 1 Alphabetter - OPEN
+2. 10 SleepRite - OPEN
+3. 5 Alphabetter - Procurement
+4. 4 Alphabetter - Production
+5. 3 ImmuneBoost - Fulfilled
+
+## Ingredients
+
+- Gummy Base
+- Vitamin C
+- Melatonin
+- Vitamin A
+- Vitamin B
