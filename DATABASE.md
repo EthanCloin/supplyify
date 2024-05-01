@@ -1,3 +1,5 @@
+> Last updated 2024-04-28, not guaranteed to be kept updated with schema until an official release
+
 I am viewing the database model as _relationships_ between a few core **entities**.
 
 # Entities

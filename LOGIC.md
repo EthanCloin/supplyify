@@ -18,6 +18,8 @@ so this junction table really determines the ratio of Ingredient to Product for 
 this flexibility might be nice, i don't have to enforce a minimum unitsproduced across the board, it's
 particular to each product. or it might be confusing, we will see.
 
-i changed my mind, i want to store the UnitsProduced value at the Product level, keeping it in the junction
+i changed my mind, i want to store the `UnitsProduced` value at the Product level, keeping it in the junction
 table results in repeatedly storing the same value when it will be the same for the product and only vary
 on the ingredient level.
+
+> I may eventually add a batches table to specifically manage the ratio products to ingredients?

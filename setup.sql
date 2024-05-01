@@ -15,7 +15,7 @@ CREATE TABLE Products (
     ProductID INTEGER PRIMARY KEY,
     Name TEXT,
     Description TEXT,
-    ProducedPerOrder INTEGER,
+    MinimumBatchSize INTEGER,
     UnitsStocked INTEGER,
     UnitsAllocated INTEGER,
     UnitsFulfilled INTEGER
@@ -32,7 +32,7 @@ CREATE TABLE ProductIngredients (
     ProductIngredientsID INTEGER PRIMARY KEY,
     ProductID INTEGER,
     IngredientID INTEGER,
-    QuantityRequired INTEGER,
+    IngredientQuantity INTEGER,
     FOREIGN KEY(ProductID) REFERENCES Products(ProductID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(IngredientID) REFERENCES Ingredients(IngredientID) ON UPDATE CASCADE ON DELETE CASCADE
 );
