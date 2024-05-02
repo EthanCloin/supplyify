@@ -9,7 +9,6 @@ CREATE TABLE Ingredients (
     QuantityAllocated INTEGER,
     QuantityConsumed INTEGER
 );
-
 DROP TABLE IF EXISTS Products;
 CREATE TABLE Products (
     ProductID INTEGER PRIMARY KEY,
@@ -20,13 +19,13 @@ CREATE TABLE Products (
     UnitsAllocated INTEGER,
     UnitsFulfilled INTEGER
 );
-
 DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders (
     OrderID INTEGER PRIMARY KEY,
-    Status TEXT CHECK(Status IN ('Open', 'Procurement', 'Production', 'Fulfilled'))
+    Status TEXT CHECK(
+        Status IN ('Open', 'Procurement', 'Production', 'Fulfilled')
+    )
 );
-
 DROP TABLE IF EXISTS ProductIngredients;
 CREATE TABLE ProductIngredients (
     ProductIngredientsID INTEGER PRIMARY KEY,
@@ -36,7 +35,6 @@ CREATE TABLE ProductIngredients (
     FOREIGN KEY(ProductID) REFERENCES Products(ProductID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(IngredientID) REFERENCES Ingredients(IngredientID) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
 DROP TABLE IF EXISTS OrderProducts;
 CREATE TABLE OrderProducts (
     OrderProductsID INTEGER PRIMARY KEY,

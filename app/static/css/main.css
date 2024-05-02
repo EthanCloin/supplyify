@@ -1,0 +1,22 @@
+:root{
+    --neutral-300:hsl(100,4%,90%);
+    --neutral-400:hsl(100, 4%,80%);
+    --neutral-500:hsl(100, 4%,70%);
+    --neutral-550:hsl(100, 4%,65%);
+    --neutral-600:hsl(100, 4%,60%);
+}
+nav.sidebar {
+    width: 20vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--neutral-400);
+    color: var(--neutral-300);
+    align-items: center;
+    justify-content: space-around;
+
+    .nav-item {
+        font-size: 24px;
+        color:hsl(from color h s l)
+    }
+}
