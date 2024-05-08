@@ -1,0 +1,88 @@
+{% extends 'layout.html' %}
+{% block content%}
+<section class="orders-scorecards">
+    <div class="__card">
+        <p class="__number">0</p>
+        <p class="__title">Open Orders</p>
+    </div>
+    <div class="__card">
+        <p class="__number">0</p>
+        <p class="__title">Open Orders</p>
+    </div>
+    <div class="__card">
+        <p class="__number">0</p>
+        <p class="__title">Open Orders</p>
+    </div>
+</section>
+<section class="orders-summary">
+    <div class="orders-view">
+        <div class="orders-list">
+            <!-- TODO: use a for loop to iter through api here -->
+            <div class="__item">
+                <p class="__title">My Order Name</p>
+                <p class="__id">43897921</p>
+            </div>
+        </div>
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <!-- i don't actually need a header title and this should conditionally render
+                    based on values in othercolumns. prob do that condition check serverside tho? -->
+                    <th>(icon)</th>
+                </tr>
+                <tr>
+                    <th>Product Name</th>
+                </tr>
+                <tr>
+                    <th>Requested</th>
+                </tr>
+                <tr>
+                    <th>Allocated</th>
+                </tr>
+                <tr>
+                    <th>Unfulfilled</th>
+                </tr>
+                <tr>
+                    <th>Available</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!-- TODO: use a for loop to iter through api here -->
+                <tr>
+                    <td>
+                        <!-- TODO: add my svg icons -->
+                        <img>
+                    </td>
+                    <td>My Unstocked Product</td>
+                    <td>100</td>
+                    <td>55</td>
+                    <td>45</td>
+                    <td>25</td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- TODO: add my svg icons -->
+                        <img>
+                    </td>
+                    <td>My Stocked Product</td>
+                    <td>100</td>
+                    <td>90</td>
+                    <td>10</td>
+                    <td>15</td>
+                </tr>
+                <tr>
+                    <td>
+                        <!-- TODO: add my svg icons -->
+                        <img>
+                    </td>
+                    <td>My Unstocked Product</td>
+                    <td>100</td>
+                    <td>100</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -7,7 +7,7 @@ app.secret_key = b"think of the children"
 
 @app.route("/")
 def home():
-    return render_template("layout.html", request={"request": request})
+    return render_template("dashboard.html", request={"request": request})
 
 
 if __name__ == "__main__":
