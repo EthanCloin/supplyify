@@ -1,6 +1,6 @@
+
 -- build all the tables, dropping first to start fresh
-DROP TABLE IF EXISTS Ingredients;
-CREATE TABLE Ingredients (
+CREATE TABLE IF NOT EXISTS Ingredients (
     IngredientID INTEGER PRIMARY KEY,
     Name TEXT,
     Description TEXT,
@@ -9,8 +9,7 @@ CREATE TABLE Ingredients (
     QuantityAllocated INTEGER,
     QuantityConsumed INTEGER
 );
-DROP TABLE IF EXISTS Products;
-CREATE TABLE Products (
+CREATE TABLE IF NOT EXISTS Products (
     ProductID INTEGER PRIMARY KEY,
     Name TEXT,
     Description TEXT,
@@ -19,15 +18,14 @@ CREATE TABLE Products (
     UnitsAllocated INTEGER,
     UnitsFulfilled INTEGER
 );
-DROP TABLE IF EXISTS Orders;
-CREATE TABLE Orders (
+
+CREATE TABLE IF NOT EXISTS Orders (
     OrderID INTEGER PRIMARY KEY,
     Status TEXT CHECK(
         Status IN ('Open', 'Procurement', 'Production', 'Fulfilled')
     )
 );
-DROP TABLE IF EXISTS ProductIngredients;
-CREATE TABLE ProductIngredients (
+CREATE TABLE IF NOT EXISTS ProductIngredients (
     ProductIngredientsID INTEGER PRIMARY KEY,
     ProductID INTEGER,
     IngredientID INTEGER,
@@ -35,8 +33,7 @@ CREATE TABLE ProductIngredients (
     FOREIGN KEY(ProductID) REFERENCES Products(ProductID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(IngredientID) REFERENCES Ingredients(IngredientID) ON UPDATE CASCADE ON DELETE CASCADE
 );
-DROP TABLE IF EXISTS OrderProducts;
-CREATE TABLE OrderProducts (
+CREATE TABLE IF NOT EXISTS OrderProducts (
     OrderProductsID INTEGER PRIMARY KEY,
     OrderID INTEGER,
     ProductID INTEGER,
