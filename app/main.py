@@ -1,14 +1,23 @@
 from flask import Blueprint, render_template, request
+from . import database as db
+from . import orders
 
 
 bp = Blueprint("main", __name__)
-bp.secret_key = b"think of the children"
 
 
 @bp.route("/")
 def home():
-    return render_template("dashboard.html", request={"request": request})
+    dashboard = get_dashboard_data()
+
+    return render_template("dashboard.html", **dashboard)
 
 
-if __name__ == "__main__":
-    bp.run(debug=True)
+def get_dashboard_data():
+    cxn = db.get_db()
+    all_orders = orders.get_all_orders(cxn)
+    order_status_counts = orders.get_order_counts_by_status(cxn)
+    return {
+        "orders": all_orders,
+        "counts": order_status_counts,
+    }

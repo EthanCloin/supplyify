@@ -84,7 +84,7 @@ VALUES (
         0,
         0
     );
-INSERT INTO Orders (OrderID, Status)
+INSERT INTO Orders (OrderID, Status, Name)
 VALUES (1, 'Open', 'CVS Restock'),
     (2, 'Open', 'Target Batch'),
     (3, 'Procurement', 'Amazon Fulfillment'),

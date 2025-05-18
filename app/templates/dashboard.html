@@ -2,66 +2,27 @@
 {% block content%}
 <section class="orders-scorecards">
     <div class="__card">
-        <p class="__number">0</p>
-        <p class="__title">Open Orders</p>
+        <p class="__number">{{ counts["open"] }}</p>
+        <p class="__title">Open</p>
     </div>
     <div class="__card">
-        <p class="__number">0</p>
-        <p class="__title">Open Orders</p>
+        <p class="__number">{{ counts["procurement"] }}</p>
+        <p class="__title">Procuring</p>
     </div>
     <div class="__card">
-        <p class="__number">0</p>
-        <p class="__title">Open Orders</p>
+        <p class="__number">{{ counts["production"] }}</p>
+        <p class="__title">In Production</p>
     </div>
 </section>
 <section class="orders-summary">
     <div class="orders-view">
         <div class="orders-list">
-            <!-- TODO: use a for loop to iter through api here -->
+            {% for o in orders %}
             <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
+                <p class="__title">{{ o["name"] }}</p>
+                <p class="__id">{{ o["orderId"] }}</p>
             </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
-            <div class="__item">
-                <p class="__title">My Order Name</p>
-                <p class="__id">43897921</p>
-            </div>
+            {% endfor %}
         </div>
         <div class="products-view">
             <table class="products-table">
