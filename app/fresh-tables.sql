@@ -41,7 +41,8 @@ CREATE TABLE OrderProducts (
     OrderProductsID INTEGER PRIMARY KEY,
     OrderID INTEGER,
     ProductID INTEGER,
-    UnitsRequested INTEGER,
+    RequestedForOrder INTEGER,
+    AllocatedToOrder INTEGER,
     FOREIGN KEY(OrderID) REFERENCES Orders(OrderID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(ProductID) REFERENCES Products(ProductID) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -100,7 +101,8 @@ VALUES (1, 'Open', 'CVS Restock'),
 INSERT INTO OrderProducts (
         OrderID,
         ProductID,
-        UnitsRequested
+        RequestedForOrder,
+        AllocatedToOrder
     )
 VALUES (
         1,
@@ -109,7 +111,8 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'ImmuneBoost'
         ),
-        2000
+        2000,
+        0
     ),
     (
         1,
@@ -118,7 +121,8 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'Alphabetter'
         ),
-        1000
+        1000,
+        0
     ),
     (
         2,
@@ -127,7 +131,8 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'SleepRite'
         ),
-        10000
+        10 * 100,
+        0
     ),
     (
         3,
@@ -136,7 +141,8 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'Alphabetter'
         ),
-        5000
+        5 * 1000,
+        0
     ),
     (
         4,
@@ -145,7 +151,8 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'Alphabetter'
         ),
-        4000
+        4 * 1000,
+        0
     ),
     (
         5,
@@ -154,6 +161,7 @@ VALUES (
             FROM Products p
             WHERE p.Name == 'ImmuneBoost'
         ),
+        3 * 1000,
         3000
     );
 /*

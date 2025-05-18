@@ -9,8 +9,9 @@ bp = Blueprint("main", __name__)
 @bp.route("/")
 def home():
     dashboard = get_dashboard_data()
+    default_products = get_products_on_order(1)
 
-    return render_template("dashboard.html", **dashboard)
+    return render_template("dashboard.html", **dashboard, products=default_products)
 
 
 def get_dashboard_data():
@@ -21,3 +22,9 @@ def get_dashboard_data():
         "orders": all_orders,
         "counts": order_status_counts,
     }
+
+
+def get_products_on_order(order_id: int):
+    cxn = db.get_db()
+    products = orders.get_products(cxn, order_id)
+    return products
