@@ -1,5 +1,3 @@
-
--- build all the tables, dropping first to start fresh
 CREATE TABLE IF NOT EXISTS Ingredients (
     IngredientID INTEGER PRIMARY KEY,
     Name TEXT,
@@ -38,7 +36,8 @@ CREATE TABLE IF NOT EXISTS OrderProducts (
     OrderProductsID INTEGER PRIMARY KEY,
     OrderID INTEGER,
     ProductID INTEGER,
-    UnitsRequested INTEGER,
+    RequestedForOrder INTEGER,
+    AllocatedToOrder INTEGER,
     FOREIGN KEY(OrderID) REFERENCES Orders(OrderID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY(ProductID) REFERENCES Products(ProductID) ON UPDATE CASCADE ON DELETE CASCADE
 );
