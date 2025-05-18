@@ -22,6 +22,7 @@ CREATE TABLE Products (
 DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders (
     OrderID INTEGER PRIMARY KEY,
+    Name TEXT,
     Status TEXT CHECK(
         Status IN ('Open', 'Procurement', 'Production', 'Fulfilled')
     )
@@ -84,11 +85,11 @@ VALUES (
         0
     );
 INSERT INTO Orders (OrderID, Status)
-VALUES (1, 'Open'),
-    (2, 'Open'),
-    (3, 'Procurement'),
-    (4, 'Production'),
-    (5, 'Fulfilled');
+VALUES (1, 'Open', 'CVS Restock'),
+    (2, 'Open', 'Target Batch'),
+    (3, 'Procurement', 'Amazon Fulfillment'),
+    (4, 'Production', 'Southeastern Grocers'),
+    (5, 'Fulfilled', 'Farmer John');
 /*
  1. 2 ImmuneBoost and 1 Alphabetter - OPEN
  2. 10 SleepRite - OPEN

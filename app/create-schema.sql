@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS Products (
 
 CREATE TABLE IF NOT EXISTS Orders (
     OrderID INTEGER PRIMARY KEY,
+    Name TEXT,
     Status TEXT CHECK(
         Status IN ('Open', 'Procurement', 'Production', 'Fulfilled')
     )
