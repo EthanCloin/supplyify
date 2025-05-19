@@ -1,0 +1,15 @@
+<tbody>
+    {% for p in products %}
+    <tr>
+        <td>
+            <!-- TODO: add my svg icons -->
+            <img />
+        </td>
+        <td>{{ p["name"] }}</td>
+        <td>{{ p["requested"] }}</td>
+        <td>{{ p["allocated"] }}</td>
+        <td>{{ p["unfulfilled"] }}</td>
+        <td>{{ p["available"] }}</td>
+    </tr>
+    {% endfor %}
+</tbody>

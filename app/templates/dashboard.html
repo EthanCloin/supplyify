@@ -1,5 +1,17 @@
 {% extends 'layout.html' %}
 {% block content%}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const first_order = document.querySelector(".orders-list").firstElementChild
+        first_order.click()
+    })
+
+    function highlight(selected) {
+        const orders = document.querySelectorAll(".orders-list__item");
+        orders.forEach(o => o.classList.remove("orders-list__item--active"));
+        selected.classList.add("orders-list__item--active");
+    }
+</script>
 <section class="orders-scorecards">
     <div class="__card">
         <p class="__number">{{ counts["open"] }}</p>
@@ -18,10 +30,12 @@
     <div class="orders-view">
         <div class="orders-list">
             {% for o in orders %}
-            <div class="__item">
+            <form class="orders-list__item" hx-get="/products" hx-target="next tbody" hx-swap="outerHTML"
+                hx-trigger="click" onclick="highlight(this)">
                 <p class="__title">{{ o["name"] }}</p>
                 <p class="__id">{{ o["orderId"] }}</p>
-            </div>
+                <input hidden name="orderId" value="{{ o['orderId'] }}" />
+            </form>
             {% endfor %}
         </div>
         <div class="products-view">
@@ -36,21 +50,7 @@
                         <th>Available</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for p in products %}
-                    <tr>
-                        <td>
-                            <!-- TODO: add my svg icons -->
-                            <img>
-                        </td>
-                        <td>{{ p["name"] }}</td>
-                        <td>{{ p["requested"] }}</td>
-                        <td>{{ p["allocated"] }}</td>
-                        <td>{{ p["unfulfilled"] }}</td>
-                        <td>{{ p["available"] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                <tbody></tbody>
             </table>
         </div>
     </div>
