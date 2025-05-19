@@ -1,5 +1,7 @@
 :root {
-  --neutral-300: hsl(100, 4%, 90%);
+  --neutral-100: hsl(100, 4%, 95%);
+  --neutral-200: hsl(100, 4%, 90%);
+  --neutral-300: hsl(100, 4%, 85%);
   --neutral-400: hsl(100, 4%, 80%);
   --neutral-500: hsl(100, 4%, 70%);
   --neutral-550: hsl(100, 4%, 65%);
@@ -26,8 +28,8 @@ nav.sidebar {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--neutral-400);
-  color: var(--neutral-300);
+  background-color: var(--neutral-300);
+  border-right: var(--neutral-500) solid 1px;
   align-items: center;
   justify-content: space-around;
 
@@ -40,11 +42,13 @@ nav.sidebar {
   width: 100%;
   height: 35%;
   display: flex;
-  background-color: var(--neutral-600);
+  /* background-color: var(--neutral-200); */
   justify-content: space-around;
   align-items: center;
+  border-bottom: var(--neutral-500) solid 1px;
+
   .__card {
-    background-color: var(--neutral-400);
+    /* background-color: var(--neutral-200); */
     height: 70%;
     width: 15%;
     text-align: center;
@@ -60,14 +64,14 @@ nav.sidebar {
 .orders-summary {
   display: flex;
   height: 100%;
-  background-color: var(--neutral-700);
+  /* background-color: var(--neutral-300); */
 }
 .orders-view {
-  --products-table-height: 50vh;
+  --products-table-height: 60vh;
   display: flex;
   margin: auto 0rem;
   padding: 1rem;
-  background-color: var(--neutral-600);
+  /* background-color: var(--neutral-300); */
   width: 100%;
   height: var(--products-table-height);
   justify-content: space-between;
@@ -75,16 +79,16 @@ nav.sidebar {
 .orders-list {
   width: 15vw;
   height: 100%;
-  border: black solid 1px;
+  border: var(--neutral-500) solid 1px;
   overflow-y: scroll;
-  background-color: var(--neutral-500);
+  background-color: var(--neutral-300);
 
   .__item {
-    height: calc(100% / 5.25);
+    height: calc(var(--products-table-height) / 5.25);
     margin: 0.3rem;
     padding: 0.2rem;
     text-align: center;
-    background-color: var(--neutral-400);
+    background-color: var(--neutral-200);
 
     .__title {
       margin: 0;
@@ -117,13 +121,13 @@ nav.sidebar {
   thead th {
     position: sticky;
     top: 0;
-    background-color: var(--neutral-600);
+    background-color: var(--neutral-300);
     padding-bottom: 1rem;
   }
   tbody tr {
     height: calc(var(--products-table-height) / 6.75);
-    background-color: var(--neutral-400);
-    border-bottom: 0.3rem var(--neutral-500) solid;
+    background-color: var(--neutral-200);
+    /* border-bottom: 0.3rem var(--neutral-400) solid; */
     text-align: center;
   }
 }
