@@ -14,6 +14,16 @@ def home():
     return render_template("dashboard.html", **dashboard, products=default_products)
 
 
+@bp.route("/products")
+def get_products():
+    order_id = request.args.get("orderId")
+    if order_id is not None:
+        order_id = int(order_id)
+        products = get_products_on_order(order_id)
+        return render_template("order-products-table.html", products=products)
+    return ""
+
+
 def get_dashboard_data():
     cxn = db.get_db()
     all_orders = orders.get_all_orders(cxn)

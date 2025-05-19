@@ -22,19 +22,19 @@ main {
   display: flex;
   flex-direction: column;
   background-color: var(--neutral-300);
+  height: 100vh;
 }
 nav.sidebar {
-  width: 20vw;
+  width: 12vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: var(--neutral-300);
   border-right: var(--neutral-500) solid 1px;
   align-items: center;
-  justify-content: space-around;
 
   .nav-item {
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 
@@ -83,7 +83,7 @@ nav.sidebar {
   overflow-y: scroll;
   background-color: var(--neutral-300);
 
-  .__item {
+  .orders-list__item {
     height: calc(var(--products-table-height) / 5.25);
     margin: 0.3rem;
     padding: 0.2rem;
@@ -99,6 +99,10 @@ nav.sidebar {
       font-size: medium;
       font-style: italic;
     }
+  }
+  .orders-list__item--active {
+    background-color: var(--neutral-100);
+    border: var(--neutral-700) solid 1px;
   }
 }
 
