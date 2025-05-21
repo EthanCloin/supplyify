@@ -7,6 +7,7 @@ bp = Blueprint("main", __name__)
 
 
 @bp.route("/")
+@bp.route("/dashboard")
 def home():
     dashboard = get_dashboard_data()
     return render_template("dashboard.html", **dashboard)

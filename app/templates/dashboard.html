@@ -28,15 +28,18 @@
 </section>
 <section class="orders-summary">
     <div class="orders-view">
-        <div class="orders-list">
-            {% for o in orders %}
-            <form class="orders-list__item" hx-get="/products" hx-target="next tbody" hx-swap="outerHTML"
-                hx-trigger="click" onclick="highlight(this)">
-                <p class="__title">{{ o["name"] }}</p>
-                <p class="__id">{{ o["orderId"] }}</p>
-                <input hidden name="orderId" value="{{ o['orderId'] }}" />
-            </form>
-            {% endfor %}
+        <div>
+            <div class="orders-view__list-label">Orders</div>
+            <div class="orders-list">
+                {% for o in orders %}
+                <form class="orders-list__item" hx-get="/products" hx-target="next tbody" hx-swap="outerHTML"
+                    hx-trigger="click" onclick="highlight(this)">
+                    <p class="__title">{{ o["name"] }}</p>
+                    <p class="__id">{{ o["orderId"] }}</p>
+                    <input hidden name="orderId" value="{{ o['orderId'] }}" />
+                </form>
+                {% endfor %}
+            </div>
         </div>
         <div class="products-view">
             <table class="products-table">

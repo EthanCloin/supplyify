@@ -8,11 +8,33 @@
     <script src="/static/htmx.2.0.4.min.js"></script>
     <title>Supplify</title>
 </head>
+<script>
+    function toggleCreateDropdown() {
+        const dropdownContent = document.getElementById("create-dropdown");
+        dropdownContent.classList.toggle("--hidden")
+    }
+    window.addEventListener("click", function (e) {
+        if (!e.target.matches(".topbar__nav-item--triggers-dropdown")) {
+            const dropdownContent = document.getElementById("create-dropdown");
+            dropdownContent.classList.add("--hidden")
+        }
+    })
+</script>
 
 <body>
-    <nav class="sidebar">
-        <a class="nav-item" href="/">Orders</a>
+    <nav class="topbar">
+        <div class="topbar__nav-item--triggers-dropdown" onclick="toggleCreateDropdown()">Create
+            <div id="create-dropdown" class="topbar__nav-item__dropdown-container --hidden">
+                <a href="/orders/create" class="topbar__nav-item__dropdown-link">Add an Order</a>
+                <a href="/" class="topbar__nav-item__dropdown-link">Add a Product</a>
+                <a href="/" class="topbar__nav-item__dropdown-link">Add an Ingredient</a>
+            </div>
+        </div>
     </nav>
+    <!-- <nav class="sidebar">
+        <a class="nav-item" href="/orders">Manage Orders</a>
+        <a class="nav-item" href="/dashboard">Orders Dashboard</a>
+    </nav> -->
     <main>{% block content %}{% endblock %}</main>
 </body>
 
