@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="orders-grid__container">
+    <div class="orders-grid__row orders-grid__row--header">
+        <div class="orders-grid__row-item orders-grid__row-item--header">
+            Order ID
+        </div>
+        <div class="orders-grid__row-item orders-grid__row-item--header">
+            Order Name
+        </div>
+        <div class="orders-grid__row-item orders-grid__row-item--header">
+            Order Status
+        </div>
+    </div>
+    {% for o in orders %}
+    <div class="orders-grid__row">
+        <div class="orders-grid__row-item">
+            {{ o.orderid }}
+        </div>
+        <div class="orders-grid__row-item">
+            {{ o.name }}
+        </div>
+        <div class="orders-grid__row-item">
+            {{ o.status }}
+        </div>
+        <div class="orders-grid__row-item orders-grid__row-item--edit-link">
+            <a href="/orders/{{ o.orderid }}/edit">Modify</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

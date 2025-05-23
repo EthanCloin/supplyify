@@ -23,6 +23,13 @@ def get_products():
     return "<tbody></tbody>"
 
 
+@bp.route("/orders")
+def get_orders():
+    cxn = db.get_db()
+    all_orders = orders.get_all_orders(cxn)
+    return render_template("orders-manage.html", orders=all_orders)
+
+
 def get_dashboard_data():
     cxn = db.get_db()
     all_orders = orders.get_all_orders(cxn)

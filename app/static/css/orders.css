@@ -1,0 +1,27 @@
+.orders-grid__container {
+  display: grid;
+  padding: 0.5rem 1rem 0.5rem;
+  align-self: center;
+  min-width: 70vw;
+  /* justify-items: center; */
+}
+
+.orders-grid__row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 0.5fr;
+  height: 3rem;
+  font-size: 1.2rem;
+  /* max-width: 85%; */
+  border: ridge black 1px;
+  margin: 0.2rem 0;
+  padding: 0 0.5rem;
+  align-items: center;
+  align-self: center;
+}
+.orders-grid__row--header {
+  grid-template-columns: 1fr 2fr 1.5fr;
+  font-weight: bold;
+}
+.orders-grid__row-item--edit-link {
+  text-align: right;
+}
