@@ -8,6 +8,13 @@
   --neutral-600: hsl(100, 4%, 60%);
   --neutral-700: hsl(100, 4%, 50%);
 }
+/* helps w using rem units on text: 10px = 1rem */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem; /* 16px */
+}
 html,
 body {
   margin: 0px;
@@ -19,7 +26,7 @@ main {
   display: flex;
   flex-direction: column;
   background-color: var(--neutral-300);
-  height: 100vh;
+  height: 94vh;
 }
 nav.sidebar {
   width: 12vw;
@@ -40,10 +47,12 @@ nav.sidebar {
   flex-direction: row-reverse;
   background-color: var(--neutral-500);
   margin: 0;
-  padding: 1em;
-  font-size: 1.2rem;
+  padding: 0.2em 0.7em;
+  font-size: 1.8rem;
   position: sticky;
   top: 0;
+  height: 5vh;
+  align-items: center;
 }
 
 .topbar__nav-item__dropdown-container {

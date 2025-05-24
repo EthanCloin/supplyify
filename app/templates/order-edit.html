@@ -1,0 +1,41 @@
+<form class="order-form__container" hx-swap="outerHTML" hx-put="/orders/{{ order.orderid }}">
+    <div class="order-form__heading">Editing Order: <em>{{ order.name }}</em></div>
+    <div class="order-form__subheading">Order ID: {{ order.orderid }}</div>
+
+    <div class="order-form__row">
+        <label class="order-form__label" for="order-name">Order Name</label>
+        <input class="order-form__input" id="order-name" name="order-name" type="text" value="{{ order.name }}" />
+    </div>
+    <div class="order-form__row">
+        <label class="order-form__label" for="order-status">Status</label>
+        <select class="order-form__input" name="order-status" id="order-status" value="{{ order.status }}">
+            <option>Open</option>
+            <option>Procurement</option>
+            <option>Production</option>
+            <option>Fulfilled</option>
+        </select>
+    </div>
+
+    <div class="order-form__section-split">Products on Order:</div>
+
+    {% for p in products %}
+    <!-- TODO: add link to product detail page to edit name there? -->
+    <div class="order-form__row">
+        <span class="order-form__label">{{ p.name }}</span>
+        <label class="order-form__label" for="product-requested-{{ p.orderproductsid }}">Ordered</label>
+        <input class="order-form__input" id="product-requested-{{ p.orderproductsid }}"
+            name="product-requested-{{ p.orderproductsid }}" type="number" value="{{ p.requested }}" />
+    </div>
+
+    <div class="order-form__row">
+        <span class="order-form__label">{{ p.name }}</span>
+        <label class="order-form__label" for="product-allocated-{{ p.orderproductsid }}">Allocated</label>
+        <input class="order-form__input" type="number" id="product-allocated-{{ p.orderproductsid }}"
+            name="product-allocated-{{ p.orderproductsid }}" value="{{ p.allocated }}" />
+    </div>
+
+    {% endfor %}
+    <div class="order-form__buttons-container">
+        <button class="order-form__button order-form__button--cancel">Cancel</button>
+        <button class="order-form__button order-form__button--submit">Submit</button>
+    </div>

@@ -25,3 +25,63 @@
 .orders-grid__row-item--edit-link {
   text-align: right;
 }
+.order-form__container,
+.order-detail__container {
+  display: grid;
+  grid-template-columns: 2vw 1fr 2vw;
+  width: 40vw;
+  align-self: center;
+  margin-top: 2em;
+  padding: 1em;
+  background-color: var(--neutral-200);
+  border: var(--neutral-500) ridge 1px;
+}
+
+.order-form__heading,
+.order-detail__heading {
+  grid-column: 1 / 3;
+  font-size: 2.4rem;
+
+  button {
+    display: inline-block;
+    margin: 0 2em;
+    align-self: center;
+  }
+}
+.order-form__subheading,
+.order-detail__subheading {
+  grid-column-start: 2;
+  font-size: 1.8rem;
+}
+
+.order-form__row,
+.order-detail__row {
+  grid-column-start: 2;
+  font-size: 1.8rem;
+  align-items: center;
+}
+
+.order-form__section-split,
+.order-detail__section-split {
+  grid-column: 1 / 3;
+  margin-top: 2em;
+  font-size: 2rem;
+}
+.order-form__buttons-container {
+  grid-column-start: 2;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1em;
+  padding-top: 1em;
+
+  border-top: var(--neutral-500) solid 2px;
+}
+.order-form__button {
+  height: 2em;
+  width: 25%;
+  font-size: 1.6rem;
+}
+
+.order-form__button--submit {
+  justify-self: flex-end;
+}
