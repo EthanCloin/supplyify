@@ -21,7 +21,7 @@ def get_products():
         products = get_products_on_order(order_id)
         return render_template("order-products-table.html", products=products)
     return "<tbody></tbody>"
-
+  
 
 @bp.route("/orders")
 def get_orders():

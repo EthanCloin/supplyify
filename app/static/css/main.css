@@ -27,6 +27,7 @@ main {
   flex-direction: column;
   background-color: var(--neutral-300);
   height: 94vh;
+
 }
 nav.sidebar {
   width: 12vw;
@@ -147,10 +148,12 @@ nav.sidebar {
   text-align: center;
   background-color: var(--neutral-200);
 
+
   .__title {
     margin: 0;
     font-size: larger;
   }
+
   .__id {
     margin: 0;
     font-size: medium;
@@ -160,6 +163,7 @@ nav.sidebar {
 .orders-list__item--active {
   background-color: var(--neutral-100);
   border: var(--neutral-700) solid 1px;
+
 }
 
 .products-view {
