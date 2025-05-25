@@ -27,7 +27,9 @@ def get_products():
 def get_orders():
     cxn = db.get_db()
     all_orders = orders.get_all_orders(cxn)
-    return render_template("orders-manage.html", orders=all_orders)
+    if request.headers.get("HX-Request"):
+        return render_template("orders-manage.html", orders=all_orders)
+    return render_template("orders-manage-page.html", orders=all_orders)
 
 
 @bp.route("/orders/<int:order_id>", methods=["GET", "PUT"])

@@ -44,7 +44,7 @@ nav.sidebar {
 
 .topbar {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   background-color: var(--neutral-500);
   margin: 0;
   padding: 0.2em 0.7em;
@@ -55,6 +55,20 @@ nav.sidebar {
   align-items: center;
 }
 
+.topbar__nav-item {
+  display: flex;
+  flex-direction: row;
+  padding: 0 1em;
+  color: black;
+  text-decoration: none;
+  min-width: 5%;
+}
+.topbar__nav-item--right {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  min-width: 10vw;
+}
 .topbar__nav-item__dropdown-container {
   display: flex;
   flex-direction: column;

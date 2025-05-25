@@ -21,11 +21,10 @@ FROM Orders
 WHERE Status IN ('Open', 'Procurement', 'Production')
 GROUP BY Status"""
     rows = db.execute(query).fetchall()
-    counts = {
-        "open": rows[0]["count"],
-        "procurement": rows[1]["count"],
-        "production": rows[2]["count"],
-    }
+    counts = {"open": 0, "procurement": 0, "production": 0}
+    for r in rows:
+        counts[r["status"].lower()] = r["count"]
+
     return counts
 
 

@@ -1,4 +1,4 @@
-<form class="order-form__container" hx-swap="outerHTML" hx-put="/orders/{{ order.orderid }}">
+<form class="order-form__container" hx-swap="outerHTML" hx-put="/orders/{{ order.orderid }}" hx-replace-url="true">
     <div class="order-form__heading">Editing Order: <em>{{ order.name }}</em></div>
     <div class="order-form__subheading">Order ID: {{ order.orderid }}</div>
 

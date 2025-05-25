@@ -1,6 +1,4 @@
-{% extends 'layout.html' %}
-{% block content %}
-<div class="orders-grid__container">
+<div class="orders-grid__container" hx-boost>
     <div class="orders-grid__row orders-grid__row--header">
         <div class="orders-grid__row-item orders-grid__row-item--header">
             Order ID
@@ -23,10 +21,15 @@
         <div class="orders-grid__row-item">
             {{ o.status }}
         </div>
-        <div class="orders-grid__row-item orders-grid__row-item--edit-link">
-            <a href="/orders/{{ o.orderid }}/edit">Modify</a>
+        <div class="orders-grid__row-item orders-grid__row-item--links-container">
+            <div class="orders-grid__row-item orders-grid__row-item--edit-link">
+                <a href="/orders/{{ o.orderid }}">View</a>
+            </div>
+            <div class="orders-grid__row-item orders-grid__row-item--edit-link">
+                <a href="/orders/{{ o.orderid }}/edit">Modify</a>
+            </div>
         </div>
+
     </div>
     {% endfor %}
 </div>
-{% endblock %}
