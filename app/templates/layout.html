@@ -5,14 +5,54 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/static/css/orders.css" />
     <script src="/static/htmx.2.0.4.min.js"></script>
     <title>Supplify</title>
 </head>
+<script>
+    // TODO: improve this so dropdowns wont both open at the same time
+    function toggleCreateDropdown() {
+        const dropdownContent = document.getElementById("create-dropdown");
+        dropdownContent.classList.toggle("--hidden")
+    }
+    function toggleManageDropdown() {
+        const dropdownContent = document.getElementById("manage-dropdown");
+        dropdownContent.classList.toggle("--hidden")
+    }
+    window.addEventListener("click", function (e) {
+        if (!e.target.matches(".topbar__nav-item--triggers-dropdown")) {
+            const creationDropdown = document.getElementById("create-dropdown");
+            const managementDropdown = document.getElementById("manage-dropdown")
+
+            creationDropdown.classList.add("--hidden")
+            managementDropdown.classList.add("--hidden")
+        }
+    })
+</script>
 
 <body>
-    <nav class="sidebar">
-        <a class="nav-item" href="/">Orders</a>
+    <nav class="topbar">
+        <a class="topbar__nav-item" href="/dashboard">Order Dashboard</a>
+        <div class="topbar__nav-item--right">
+            <div class="topbar__nav-item--triggers-dropdown" onclick="toggleManageDropdown()">Manage
+                <div id="manage-dropdown" class="topbar__nav-item__dropdown-container --hidden">
+                    <a href="/orders" class="topbar__nav-item__dropdown-link">Manage Orders</a>
+                </div>
+            </div>
+            <div class="topbar__nav-item--triggers-dropdown" onclick="toggleCreateDropdown()">
+                Create
+                <div id="create-dropdown" class="topbar__nav-item topbar__nav-item__dropdown-container --hidden">
+                    <a href="/" class="topbar__nav-item__dropdown-link">Add an Order</a>
+                    <a href="/" class="topbar__nav-item__dropdown-link">Add a Product</a>
+                    <a href="/" class="topbar__nav-item__dropdown-link">Add an Ingredient</a>
+                </div>
+            </div>
+        </div>
     </nav>
+    <!-- <nav class="sidebar">
+        <a class="nav-item" href="/orders">Manage Orders</a>
+        <a class="nav-item" href="/dashboard">Orders Dashboard</a>
+    </nav> -->
     <main>{% block content %}{% endblock %}</main>
 </body>
 

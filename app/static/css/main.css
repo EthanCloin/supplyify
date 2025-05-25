@@ -8,21 +8,26 @@
   --neutral-600: hsl(100, 4%, 60%);
   --neutral-700: hsl(100, 4%, 50%);
 }
+/* helps w using rem units on text: 10px = 1rem */
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: 1.6rem; /* 16px */
+}
 html,
 body {
   margin: 0px;
   padding: 0px;
 }
 
-body {
-  display: flex;
-}
 main {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--neutral-300);
-  height: 100vh;
+  height: 94vh;
+
 }
 nav.sidebar {
   width: 12vw;
@@ -38,6 +43,55 @@ nav.sidebar {
   }
 }
 
+.topbar {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--neutral-500);
+  margin: 0;
+  padding: 0.2em 0.7em;
+  font-size: 1.8rem;
+  position: sticky;
+  top: 0;
+  height: 5vh;
+  align-items: center;
+}
+
+.topbar__nav-item {
+  display: flex;
+  flex-direction: row;
+  padding: 0 1em;
+  color: black;
+  text-decoration: none;
+  min-width: 5%;
+}
+.topbar__nav-item--right {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  min-width: 10vw;
+}
+.topbar__nav-item__dropdown-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--neutral-200);
+  border: var(--neutral-300) 2px ridge;
+  position: absolute;
+  top: 2.5em;
+  right: 2em;
+  padding: 0.5em;
+}
+.--hidden {
+  display: none;
+}
+
+.topbar__nav-item__dropdown-link {
+  padding: 0.5em;
+  padding-left: 0.7em;
+  padding-bottom: 0.2em;
+  border-left: var(--neutral-700) 3px solid;
+  margin-bottom: 0.3em;
+  text-align: left;
+}
 .orders-scorecards {
   width: 100%;
   height: 35%;
@@ -82,28 +136,34 @@ nav.sidebar {
   border: var(--neutral-500) solid 1px;
   overflow-y: scroll;
   background-color: var(--neutral-300);
+}
+.orders-view__list-label {
+  text-align: center;
+  font-weight: bold;
+}
+.orders-list__item {
+  height: calc(var(--products-table-height) / 5.25);
+  margin: 0.3rem;
+  padding: 0.2rem;
+  text-align: center;
+  background-color: var(--neutral-200);
 
-  .orders-list__item {
-    height: calc(var(--products-table-height) / 5.25);
-    margin: 0.3rem;
-    padding: 0.2rem;
-    text-align: center;
-    background-color: var(--neutral-200);
 
-    .__title {
-      margin: 0;
-      font-size: larger;
-    }
-    .__id {
-      margin: 0;
-      font-size: medium;
-      font-style: italic;
-    }
+  .__title {
+    margin: 0;
+    font-size: larger;
   }
-  .orders-list__item--active {
-    background-color: var(--neutral-100);
-    border: var(--neutral-700) solid 1px;
+
+  .__id {
+    margin: 0;
+    font-size: medium;
+    font-style: italic;
   }
+}
+.orders-list__item--active {
+  background-color: var(--neutral-100);
+  border: var(--neutral-700) solid 1px;
+
 }
 
 .products-view {
