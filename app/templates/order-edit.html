@@ -36,6 +36,7 @@
 
     {% endfor %}
     <div class="order-form__buttons-container">
-        <button class="order-form__button order-form__button--cancel">Cancel</button>
+        <button class="order-form__button order-form__button--cancel" hx-get="/orders/{{ order.orderid }}"
+            hx-target="closest .order-form__container" hx-swap="outerHTML">Cancel</button>
         <button class="order-form__button order-form__button--submit">Submit</button>
     </div>
