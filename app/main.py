@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 from . import database as db
-from . import orders
+from . import orders, products
 
 
 bp = Blueprint("main", __name__)
@@ -21,7 +21,7 @@ def get_products():
         products = get_products_on_order(order_id)
         return render_template("order-products-table.html", products=products)
     return "<tbody></tbody>"
-  
+
 
 @bp.route("/orders")
 def get_orders():
@@ -76,8 +76,8 @@ def extract_product_updates() -> dict[int, dict[str, int]]:
     return updated_products
 
 
-@bp.route("/orders/<int:order_id>/edit")
-def order_edit_form(order_id, methods=["GET", "PUT"]):
+@bp.route("/orders/<int:order_id>/edit", methods=["GET", "PUT"])
+def order_edit_form(order_id):
 
     cxn = db.get_db()
     order_details = orders.get_order(cxn, order_id)
@@ -90,6 +90,16 @@ def order_edit_form(order_id, methods=["GET", "PUT"]):
     return render_template(
         "order-edit-page.html", order=order_details, products=products
     )
+
+
+@bp.get("/orders/new")
+def order_new_form():
+    cxn = db.get_db()
+    all_products = products.get_all_products(cxn)
+    return render_template("order-create.html", products=all_products)
+
+
+# TODO: add post to create new order
 
 
 def get_dashboard_data():

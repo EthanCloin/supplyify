@@ -1,0 +1,146 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form class="order-form__container" hx-swap="outerHTML" hx-put="/orders/new" hx-replace-url="true">
+    <script>
+        const state = {
+            selectedProducts: new Set(),
+            allProducts: JSON.parse('{{ products | tojson }}'),
+        };
+
+        function onProductSelectChange() {
+            updateSelectedProducts();
+            updateAllSelectOptions();
+        }
+        /** update the state var with all selected product names */
+        function updateSelectedProducts() {
+            state.selectedProducts.clear();
+            document.querySelectorAll('select[id^="product-name-"]')
+                .forEach(select => {
+                    if (select.value) state.selectedProducts.add(select.value);
+                });
+        }
+
+        function updateAllSelectOptions() {
+            const allProducts = state.allProducts;
+            const selects = document.querySelectorAll('.product-select');
+
+            selects.forEach(select => {
+                const currentValue = select.value;
+
+                // Get other selected values (excluding this one)
+                const otherSelected = new Set();
+                selects.forEach(s => {
+                    if (s !== select && s.value) {
+                        otherSelected.add(s.value);
+                    }
+                });
+
+                // Rebuild options
+                select.innerHTML = ''; // Clear existing options
+
+                allProducts.forEach(product => {
+                    if (!otherSelected.has(product.Name)) {
+                        const option = document.createElement('option');
+                        option.value = product.Name;
+                        option.textContent = product.Name;
+                        if (product.Name === currentValue) {
+                            option.selected = true;
+                        }
+                        select.appendChild(option);
+                    }
+                });
+            });
+        }
+        function addProductRow(e) {
+            console.log(state)
+            e.preventDefault(); // button wants to submit form so bad
+
+            const index = document.querySelectorAll('.order-form__row--products').length + 1;
+            if (index - 1 >= state.allProducts.length) {
+                console.log("no products remaining to select");
+                return;
+            }
+
+            const nameLabel = document.createElement("label");
+            nameLabel.classList.add("order-form__label");
+            nameLabel.for = `product-name-${index}`;
+            nameLabel.textContent = "Select a Product";
+
+            const quantityLabel = document.createElement("label");
+            quantityLabel.classList.add("order-form__label");
+            quantityLabel.for = `product-quantity-${index}`;
+            quantityLabel.textContent = "How Many?";
+
+            const quantityInput = document.createElement("input");
+            quantityInput.id = quantityLabel.for;
+            quantityInput.type = "number";
+            quantityInput.name = `product-requested-${index}`;
+
+            const newRow = document.createElement("div");
+            newRow.classList.add("order-form__row", "order-form__row--products");
+
+            newRow.appendChild(nameLabel);
+            newRow.appendChild(buildFilteredSelect(index));
+            newRow.appendChild(quantityLabel);
+            newRow.appendChild(quantityInput);
+
+            document.querySelector("form").insertBefore(newRow, document.querySelector("#add-product-btn"));
+            onProductSelectChange(); // make existing dropdowns update
+        }
+        function buildFilteredSelect(index) {
+            updateSelectedProducts();
+            const select = document.createElement("select");
+            select.id = `product-name-${index}`;
+            select.onchange = onProductSelectChange;
+            select.classList.add("product-select");
+
+            const availableProducts = state.allProducts.filter(p => !state.selectedProducts.has(p.Name));
+            availableProducts.forEach(p => {
+                const opt = document.createElement("option");
+                opt.value = p.Name;
+                opt.textContent = p.Name;
+                select.appendChild(opt);
+            })
+            return select;
+        };
+
+    </script>
+    <div class="order-form__heading">Creating New Order</div>
+
+    <div class="order-form__row">
+        <label class="order-form__label" for="order-name">Order Name</label>
+        <input class="order-form__input" id="order-name" name="order-name" type="text" />
+    </div>
+    <div class="order-form__row">
+        <label class="order-form__label" for="order-status">Status</label>
+        <select class="order-form__input" name="order-status" id="order-status">
+            <option>Open</option>
+            <option>Procurement</option>
+            <option>Production</option>
+            <option>Fulfilled</option>
+        </select>
+    </div>
+
+    <div class="order-form__section-split">Products on Order:</div>
+
+    <div class="order-form__row order-form__row--products">
+        <!-- pick name -->
+        <label class="order-form__label" for="product-name-1">Select a Product</label>
+        <select class="product-select" id="product-name-1" onchange="onProductSelectChange()">
+            {% for p in products %}
+            <option value="{{ p.Name }}">{{ p.Name }}</option>
+            {% endfor %}
+        </select>
+
+
+        <label class="order-form__label" for="product-quantity-1">How Many?</label>
+        <input class="order-form__input" id="product-quantity-1" name="product-requested-1" type="number" />
+    </div>
+    <button type="button" id="add-product-btn" onclick="addProductRow(event)">+</button>
+
+    <div class="order-form__buttons-container">
+        <button class="order-form__button order-form__button--cancel" hx-replace-url="true" hx-get="/orders"
+            hx-target="closest form">Cancel</button>
+        <button class="order-form__button order-form__button--submit">Submit</button>
+    </div>
+    {% endblock %}
