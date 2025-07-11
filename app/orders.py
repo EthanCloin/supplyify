@@ -94,3 +94,25 @@ RETURNING OrderProductsID
         affected_products.append(db.execute(query, params).fetchone())
     db.commit()
     return affected_products
+
+
+def create_order(db: Connection, order: dict, order_products: list[dict]):
+    order_query = """
+INSERT INTO Orders (Name, Status) VALUES (?, ?);
+"""
+    order_params = (order.get("Name"), order.get("Status"))
+    cursor = db.execute(order_query, order_params)
+    order_id = cursor.lastrowid
+
+    op_query = """
+INSERT INTO OrderProducts (OrderID, ProductID, RequestedForOrder) VALUES (?, ?, ?);
+"""
+    
+    op_params = [(order_id, op.get("ProductID"), op.get("RequestedForOrder")) for op in order_products]
+    db.executemany(op_query, op_params)
+    db.commit()
+    # Example with sqlite3
+    
+
+
+    

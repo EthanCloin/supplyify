@@ -1,18 +1,22 @@
 <section class="order-detail__container" hx-target="this" hx-swap="outerHTML">
-    <div class="order-detail__heading">Details of Order: <em>{{ order.name }}</em>
+    <div class="order-detail__heading">Details of Order: <em>{{ order.name }}</em></div>
+    <div class="order-detail__row">
+        <span class="order-form__label">Order ID</span>
+        <span>{{ order.orderid }}</span>
+        <span class="order-form__label">Status</span>
+        <span>{{ order.status }}</span>
     </div>
-    <div class="order-detail__row"><label>Order ID</label>: {{ order.orderid }}</div>
-    <div class="order-detail__row"><label>Status</label>: {{ order.status }}</div>
 
     <div class="order-detail__section-split">Products on Order:</div>
-
     {% for p in products %}
-    <!-- TODO: add link to product detail page to edit name there? -->
     <div class="order-detail__row">
-        {{ p.name }} <label>Ordered</label>: {{ p.requested }}
+        <span class="order-form__label" style="font-weight:600;">{{ p.name }}</span>
     </div>
     <div class="order-detail__row">
-        {{ p.name }} <label>Allocated</label> for Order: {{ p.allocated }}
+        <span class="order-form__label">Ordered</span>
+        <span>{{ p.requested }}</span>
+        <span class="order-form__label">Allocated</span>
+        <span>{{ p.allocated }}</span>
     </div>
     {% endfor %}
     <div class="order-detail__row order-detail__row--buttons" hx-replace-url>

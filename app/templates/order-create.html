@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-<form class="order-form__container" hx-swap="outerHTML" hx-put="/orders/new" hx-replace-url="true">
+<form class="order-form__container" hx-swap="outerHTML" hx-post="/orders/new">
     <script>
         const state = {
             selectedProducts: new Set(),
@@ -16,10 +16,9 @@
             state.selectedProducts.clear();
             document.querySelectorAll('select[id^="product-name-"]')
                 .forEach(select => {
-                    if (select.value) state.selectedProducts.add(select.value);
+                    if (select.value) state.selectedProducts.add(Number(select.value));
                 });
         }
-
         function updateAllSelectOptions() {
             const allProducts = state.allProducts;
             const selects = document.querySelectorAll('.product-select');
@@ -39,16 +38,17 @@
                 select.innerHTML = ''; // Clear existing options
 
                 allProducts.forEach(product => {
-                    if (!otherSelected.has(product.Name)) {
+                    if (!otherSelected.has(product.ProductID.toString())) {
                         const option = document.createElement('option');
-                        option.value = product.Name;
+                        option.value = product.ProductID;
                         option.textContent = product.Name;
-                        if (product.Name === currentValue) {
+                        if (product.ProductID == currentValue) {
                             option.selected = true;
                         }
                         select.appendChild(option);
                     }
                 });
+                select.setAttribute("data-productID", currentValue);
             });
         }
         function addProductRow(e) {
@@ -63,12 +63,12 @@
 
             const nameLabel = document.createElement("label");
             nameLabel.classList.add("order-form__label");
-            nameLabel.for = `product-name-${index}`;
+            nameLabel.setAttribute("for", `product-name-${index}`);
             nameLabel.textContent = "Select a Product";
 
             const quantityLabel = document.createElement("label");
             quantityLabel.classList.add("order-form__label");
-            quantityLabel.for = `product-quantity-${index}`;
+            quantityLabel.setAttribute("for", `product-quantity-${index}`);
             quantityLabel.textContent = "How Many?";
 
             const quantityInput = document.createElement("input");
@@ -84,26 +84,26 @@
             newRow.appendChild(quantityLabel);
             newRow.appendChild(quantityInput);
 
-            document.querySelector("form").insertBefore(newRow, document.querySelector("#add-product-btn"));
+            document.querySelector("form").insertBefore(newRow, document.querySelector(".add-product-btn-container"));
             onProductSelectChange(); // make existing dropdowns update
         }
         function buildFilteredSelect(index) {
             updateSelectedProducts();
             const select = document.createElement("select");
             select.id = `product-name-${index}`;
+            select.name = `product-name-${index}`;
             select.onchange = onProductSelectChange;
             select.classList.add("product-select");
 
-            const availableProducts = state.allProducts.filter(p => !state.selectedProducts.has(p.Name));
+            const availableProducts = state.allProducts.filter(p => !state.selectedProducts.has(p.ProductID));
             availableProducts.forEach(p => {
                 const opt = document.createElement("option");
-                opt.value = p.Name;
+                opt.value = p.ProductID;
                 opt.textContent = p.Name;
                 select.appendChild(opt);
             })
             return select;
         };
-
     </script>
     <div class="order-form__heading">Creating New Order</div>
 
@@ -126,9 +126,10 @@
     <div class="order-form__row order-form__row--products">
         <!-- pick name -->
         <label class="order-form__label" for="product-name-1">Select a Product</label>
-        <select class="product-select" id="product-name-1" onchange="onProductSelectChange()">
+        <select class="product-select" id="product-name-1" name="product-name-1" onchange="onProductSelectChange()"
+            data-productID="{{ products[0].ProductID }}">
             {% for p in products %}
-            <option value="{{ p.Name }}">{{ p.Name }}</option>
+            <option value="{{ p.ProductID }}">{{ p.Name }}</option>
             {% endfor %}
         </select>
 
@@ -136,7 +137,9 @@
         <label class="order-form__label" for="product-quantity-1">How Many?</label>
         <input class="order-form__input" id="product-quantity-1" name="product-requested-1" type="number" />
     </div>
-    <button type="button" id="add-product-btn" onclick="addProductRow(event)">+</button>
+    <div class="add-product-btn-container">
+        <button type="button" id="add-product-btn" onclick="addProductRow(event)">+</button>
+    </div>
 
     <div class="order-form__buttons-container">
         <button class="order-form__button order-form__button--cancel" hx-replace-url="true" hx-get="/orders"

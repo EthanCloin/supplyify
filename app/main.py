@@ -100,6 +100,31 @@ def order_new_form():
 
 
 # TODO: add post to create new order
+@bp.post("/orders/new")
+def create_new_order():
+    # Build a list of dicts with ProductID, Name, Quantity
+    products_requested = []
+    for key, value in request.form.items():
+        if key.startswith("product-name-"):
+            idx = key.split("-")[-1]
+            product_id = value
+            quantity_key = f"product-requested-{idx}"
+            quantity = request.form.get(quantity_key)
+            if product_id and quantity:
+                try:
+                    quantity_int = int(quantity)
+                except ValueError:
+                    continue
+                products_requested.append({
+                    "ProductID": int(product_id),
+                    "RequestedForOrder": quantity_int
+                })
+    order = {
+        "Name": request.form.get("order-name"),
+        "Status": request.form.get("order-status"),
+    }
+    cxn = db.get_db()
+    orders.create_order(cxn, order, products_requested)
 
 
 def get_dashboard_data():
