@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from . import database as db
 from . import orders, products
 
@@ -99,7 +99,6 @@ def order_new_form():
     return render_template("order-create.html", products=all_products)
 
 
-# TODO: add post to create new order
 @bp.post("/orders/new")
 def create_new_order():
     # Build a list of dicts with ProductID, Name, Quantity
@@ -125,7 +124,23 @@ def create_new_order():
     }
     cxn = db.get_db()
     orders.create_order(cxn, order, products_requested)
+    return redirect(url_for("main.get_orders"))
 
+@bp.get("/products/new")
+def product_new_form():
+    return render_template("product-create.html")
+
+@bp.post("/products/new")
+def create_new_product():
+    product = {
+        "Name": request.form.get("product-name"),
+        "Description": request.form.get("product-description"),
+        "MinimumBatchSize": int(request.form.get("product-min-batch")),
+        "UnitsStocked": int(request.form.get("product-units-stocked")),
+    }
+    cxn = db.get_db()
+    products.create_product(cxn, product)
+    return redirect(url_for("main.get_orders"))
 
 def get_dashboard_data():
     cxn = db.get_db()

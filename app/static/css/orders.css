@@ -190,20 +190,6 @@
   color: #2d3748;
 }
 
-@media (max-width: 700px) {
-  .order-form__container {
-    padding: 1rem 0.5rem;
-  }
-  .order-form__row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
-  }
-  .order-form__buttons-container {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-}
-
 .order-detail__row--buttons {
   display: flex;
   gap: 1.5rem;

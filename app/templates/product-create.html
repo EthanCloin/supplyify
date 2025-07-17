@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block content %}
+<form class="order-form__container" hx-swap="outerHTML" hx-post="/products/new">
+    <div class="order-form__heading">Create New Product</div>
+
+    <div class="order-form__row">
+        <label class="order-form__label" for="product-name">Product Name</label>
+        <input class="order-form__input" id="product-name" name="product-name" type="text" required />
+        <label class="order-form__label" for="product-description">Description</label>
+        <input class="order-form__input" id="product-description" name="product-description" type="text" />
+    </div>
+
+    <div class="order-form__row">
+        <label class="order-form__label" for="product-min-batch">Minimum Batch Size</label>
+        <input class="order-form__input" id="product-min-batch" name="product-min-batch" type="number" min="1" required />
+        <label class="order-form__label" for="product-units-stocked">Units Stocked</label>
+        <input class="order-form__input" id="product-units-stocked" name="product-units-stocked" type="number" min="0" />
+    </div>
+
+    <div class="order-form__row">
+        <label class="order-form__label" for="product-units-allocated">Units Allocated</label>
+        <input class="order-form__input" id="product-units-allocated" name="product-units-allocated" type="number" min="0" />
+        <label class="order-form__label" for="product-units-fulfilled">Units Fulfilled</label>
+        <input class="order-form__input" id="product-units-fulfilled" name="product-units-fulfilled" type="number" min="0" />
+    </div>
+
+    <div class="order-form__buttons-container">
+        <button class="order-form__button order-form__button--cancel" hx-get="/products" hx-target="closest form">Cancel</button>
+        <button class="order-form__button order-form__button--submit">Submit</button>
+    </div>
+</form>
+{% endblock %}
