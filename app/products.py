@@ -6,11 +6,13 @@ def get_all_products(db: Connection):
 SELECT 
     ProductID 
     ,Name
+    ,Description
+    ,UnitsStocked
     ,MinimumBatchSize
 FROM Products;
 """
     res = db.execute(query).fetchall()
-    return [dict(p) for p in res]
+    return res
 
 def create_product(db: Connection, product: dict):
     query = """

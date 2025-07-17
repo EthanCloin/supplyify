@@ -1,0 +1,25 @@
+{# Import the table.css stylesheet #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+<div class="flex-table__wrapper">
+    <div class="flex-table__container">
+        <h2 class="flex-table__title">Orders</h2>
+        <div class="flex-table">
+            <div class="flex-table__header">
+                {% for col in columns %}
+                <div class="flex-table__cell flex-table__cell--header">{{ col }}</div>
+                {% endfor %}
+            </div>
+            <div class="flex-table__body">
+                {% for order in orders %}
+                <div class="flex-table__row">
+                    <div class="flex-table__cell">{{ order.OrderID }}</div>
+                    <div class="flex-table__cell">{{ order.Name }}</div>
+                    <div class="flex-table__cell">{{ order.Status }}</div>
+                    <div class="flex-table__cell">
+                        <a href="/orders/{{ order.OrderID }}" style="margin-right: 10px;">View</a>
+                        <a href="/orders/{{ order.OrderID }}/edit">Modify</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>

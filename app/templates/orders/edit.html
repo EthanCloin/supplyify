@@ -1,0 +1,42 @@
+{# Import card styles #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+<form class="order-card" hx-put="/orders/{{ order.OrderID }}" hx-target="this" hx-swap="outerHTML">
+    <div class="order-card__header">
+        <div class="order-card__title">Order {{ order.OrderID }} - <input type="text" name="order-name"
+                value="{{ order.Name }}" /></div>
+        <div class="order-card__status">
+            <select name="order-status">
+                <option {% if order.status=='Open' %}selected{% endif %}>Open</option>
+                <option {% if order.status=='Procurement' %}selected{% endif %}>Procurement</option>
+                <option {% if order.status=='Production' %}selected{% endif %}>Production</option>
+                <option {% if order.status=='Fulfilled' %}selected{% endif %}>Fulfilled</option>
+            </select>
+        </div>
+    </div>
+    <div class="order-card__products">
+        {% for product in products %}
+        <div class="order-card__product">
+            <div class="order-card__product-name">{{ product.Name }}</div>
+            <div class="order-card__product-details">
+                <div>
+                    <label class="order-card__label" for="requested-{{ loop.index0 }}">Requested:</label>
+                    <input type="number" class="order-card__input"
+                        id="product-requested-{{ product['OrderProductsID'] }}"
+                        name="product-requested-{{ product['OrderProductsID'] }}" value="{{ product.Requested }}">
+                </div>
+                <div>
+                    <label class="order-card__label" for="allocated-{{ loop.index0 }}">Allocated:</label>
+                    <input type="number" class="order-card__input"
+                        id="product-allocated-{{ product['OrderProductsID'] }}"
+                        name="product-allocated-{{ product['OrderProductsID'] }}" value="{{ product.Allocated }}">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+        <button type="button" hx-get="/orders/{{ order.OrderID }}" hx-target=".order-card"
+            hx-swap="outerHTML">Cancel</button>
+        <button type="submit">Save Changes</button>
+    </div>
+    </div>

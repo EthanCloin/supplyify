@@ -1,0 +1,25 @@
+{# Import the table.css stylesheet #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+<div class="flex-table__wrapper">
+    <div class="flex-table__container">
+        <h2 class="flex-table__title">Products</h2>
+        <div class="flex-table">
+            <div class="flex-table__header">
+                {% for col in columns %}
+                <div class="flex-table__cell flex-table__cell--header">{{ col }}</div>
+                {% endfor %}
+            </div>
+            <div class="flex-table__body">
+                {% for product in products %}
+                <div class="flex-table__row">
+                    <div class="flex-table__cell">{{ product.ProductID }}</div>
+                    <div class="flex-table__cell">{{ product.Name }}</div>
+                    <div class="flex-table__cell">{{ product.Description }}</div>
+                    <div class="flex-table__cell">{{ product.UnitsStocked }}</div>
+                    <div class="flex-table__cell">{{ product.MinimumBatchSize }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+/* Flex Table Container: aligns title and table */
+.flex-table__container {
+  width: 80%;
+  min-width: 300px;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Flex Table Title */
+.flex-table__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  text-align: left;
+  letter-spacing: -0.5px;
+}
+
+/* Flex Table Wrapper: center and add gutters */
+.flex-table__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+  background: #f8fafc;
+}
+
+/* Flex Table Styles */
+.flex-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+.flex-table__header,
+.flex-table__row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-table__header {
+  background: #f7fafc;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.flex-table__cell {
+  flex: 1 1 0;
+  padding: 0.75rem 1rem;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.flex-table__cell:last-child {
+  border-right: none;
+}
+
+.flex-table__row {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.flex-table__row:last-child {
+  border-bottom: none;
+}
+
+.flex-table__cell--header {
+  background: #f7fafc;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.flex-table__body {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,24 @@
+{# Import card styles #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+<div class="order-card">
+    <div class="order-card__header">
+        <div class="order-card__title">Order {{ order.OrderID }} - {{ order.Name }}</div>
+        <div class="order-card__status">{{ order.Status }}</div>
+    </div>
+    <div class="order-card__products">
+        {% for product in products %}
+        <div class="order-card__product">
+            <div class="order-card__product-name">{{ product.Name }}</div>
+            <div class="order-card__product-details">
+                <div><span class="order-card__label">Requested:</span> {{ product.Requested }}</div>
+                <div><span class="order-card__label">Allocated:</span> {{ product.Allocated }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div hx-target=".order-card" hx-swap="outerHTML">
+        <button hx-get="/orders">Back to Orders</button>
+        <button hx-get="/orders/{{ order.OrderID }}/edit">Edit</button>
+        <!-- this target swap might leave my stylesheets hanging around unnecessarily -->
+    </div>
+</div>

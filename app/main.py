@@ -15,21 +15,23 @@ def home():
 
 @bp.route("/products")
 def get_products():
-    order_id = request.args.get("orderId")
-    if order_id is not None:
-        order_id = int(order_id)
-        products = get_products_on_order(order_id)
-        return render_template("order-products-table.html", products=products)
-    return "<tbody></tbody>"
+    cxn = db.get_db()
+    all_products = products.get_all_products(cxn)
+    columns = ["Product ID", "Name", "Description", "Units Stocked", "Minimum Batch Size"]
+    if request.headers.get("HX-Request"):
+        return render_template("products/manage.html", columns=columns, products=all_products)
+    return render_template("products/manage-page.html", columns=columns, products=all_products)
 
 
 @bp.route("/orders")
 def get_orders():
     cxn = db.get_db()
     all_orders = orders.get_all_orders(cxn)
+    columns = ["Order ID", "Order Name", "Order Status", "Actions"]
+
     if request.headers.get("HX-Request"):
-        return render_template("orders-manage.html", orders=all_orders)
-    return render_template("orders-manage-page.html", orders=all_orders)
+        return render_template("orders/manage.html", columns=columns, orders=all_orders)
+    return render_template("orders/manage-page.html", columns=columns, orders=all_orders)
 
 
 @bp.route("/orders/<int:order_id>", methods=["GET", "PUT"])
@@ -45,17 +47,17 @@ def get_order_details(order_id):
         }
         updated_products = extract_product_updates()
 
-        affected_order = orders.update_order(cxn, order_id, updated_order)
-        affected_products = orders.update_products(cxn, order_id, updated_products)
+        orders.update_order(cxn, order_id, updated_order)
+        orders.update_products(cxn, order_id, updated_products)
         order_details = orders.get_order(cxn, order_id)
         products = orders.get_products(cxn, order_id)
 
     if request.headers.get("HX-Request"):
         return render_template(
-            "order-detail.html", order=order_details, products=products
+            "orders/detail.html", order=order_details, products=products
         )
     return render_template(
-        "order-detail-page.html", order=order_details, products=products
+        "orders/detail-page.html", order=order_details, products=products
     )
 
 
@@ -85,10 +87,10 @@ def order_edit_form(order_id):
 
     if request.headers.get("HX-Request"):
         return render_template(
-            "order-edit.html", order=order_details, products=products
+            "orders/edit.html", order=order_details, products=products
         )
     return render_template(
-        "order-edit-page.html", order=order_details, products=products
+        "orders/edit-page.html", order=order_details, products=products
     )
 
 

@@ -35,3 +35,7 @@ Their tasks will be:
 7. Updating Products and assigned Ingredients
 
 # Translating that to design
+I will create groups of templates for each of the Domain Models (Order, Product, Ingredient). These templates will use CSS classnames that are shared between domains, referencing generic components. 
+
+I want the Product Create Form and Order Create Form to both use something like 'modal--two-columns' as a class.
+## Orders
